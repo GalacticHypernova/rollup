@@ -8,8 +8,8 @@ import { type NodeRenderOptions, type RenderOptions } from '../../utils/renderHe
 import type { DeoptimizableEntity } from '../DeoptimizableEntity';
 import type { HasEffectsContext, InclusionContext } from '../ExecutionContext';
 import { INTERACTION_CALLED } from '../NodeInteractions';
-import { EMPTY_PATH, SHARED_RECURSION_TRACKER, UNKNOWN_PATH } from '../utils/PathTracker';
 import type { ObjectPath, PathTracker } from '../utils/PathTracker';
+import { EMPTY_PATH, SHARED_RECURSION_TRACKER, UNKNOWN_PATH } from '../utils/PathTracker';
 import Identifier from './Identifier';
 import MemberExpression from './MemberExpression';
 import type * as NodeType from './NodeType';
@@ -106,7 +106,8 @@ export default class CallExpression
 		}
 		return (
 			!this.annotationPure &&
-			this.callee.hasEffectsOnInteractionAtPath(EMPTY_PATH, this.interaction, context)
+			(calleeHasEffects ||
+				this.callee.hasEffectsOnInteractionAtPath(EMPTY_PATH, this.interaction, context))
 		);
 	}
 

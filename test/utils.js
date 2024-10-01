@@ -91,6 +91,9 @@ exports.compareError = function compareError(actual, expected) {
 		expected.frame = deindent(expected.frame);
 	}
 	assert.deepEqual(actual, expected);
+	if (actual.stack) {
+		assert.ok(actual.stack.includes(expected.message));
+	}
 };
 
 /**

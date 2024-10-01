@@ -1,5 +1,126 @@
 # rollup changelog
 
+## 4.23.0
+
+_2024-10-01_
+
+### Features
+
+- Collect all emitted names and originalFileNames for assets (#5686)
+
+### Pull Requests
+
+- [#5686](https://github.com/rollup/rollup/pull/5686): Add names and originalFileNames to assets (@lukastaegert)
+
+## 4.22.5
+
+_2024-09-27_
+
+### Bug Fixes
+
+- Allow parsing of certain unicode characters again (#5674)
+
+### Pull Requests
+
+- [#5674](https://github.com/rollup/rollup/pull/5674): Fix panic with unicode characters (@sapphi-red, @lukastaegert)
+- [#5675](https://github.com/rollup/rollup/pull/5675): chore(deps): update dependency rollup to v4.22.4 [security] (@renovate[bot])
+- [#5680](https://github.com/rollup/rollup/pull/5680): chore(deps): update dependency @rollup/plugin-commonjs to v28 (@renovate[bot], @lukastaegert)
+- [#5681](https://github.com/rollup/rollup/pull/5681): chore(deps): update dependency @rollup/plugin-replace to v6 (@renovate[bot])
+- [#5682](https://github.com/rollup/rollup/pull/5682): chore(deps): update dependency @rollup/plugin-typescript to v12 (@renovate[bot])
+- [#5684](https://github.com/rollup/rollup/pull/5684): chore(deps): lock file maintenance minor/patch updates (@renovate[bot])
+
+## 4.22.4
+
+_2024-09-21_
+
+### Bug Fixes
+
+- Fix a vulnerability in generated code that affects IIFE, UMD and CJS bundles when run in a browser context (#5671)
+
+### Pull Requests
+
+- [#5670](https://github.com/rollup/rollup/pull/5670): refactor: Use object.prototype to check for reserved properties (@YuHyeonWook)
+- [#5671](https://github.com/rollup/rollup/pull/5671): Fix DOM Clobbering CVE (@lukastaegert)
+
+## 4.22.3
+
+_2024-09-21_
+
+### Bug Fixes
+
+- Ensure that mutations in modules without side effects are observed while properly handling transitive dependencies (#5669)
+
+### Pull Requests
+
+- [#5669](https://github.com/rollup/rollup/pull/5669): Ensure impure dependencies of pure modules are added (@lukastaegert)
+
+## 4.22.2
+
+_2024-09-20_
+
+### Bug Fixes
+
+- Revert fix for side effect free modules until other issues are investigated (#5667)
+
+### Pull Requests
+
+- [#5667](https://github.com/rollup/rollup/pull/5667): Partially revert #5658 and re-apply #5644 (@lukastaegert)
+
+## 4.22.1
+
+_2024-09-20_
+
+### Bug Fixes
+
+- Revert #5644 "stable chunk hashes" while issues are being investigated
+
+### Pull Requests
+
+- [#5663](https://github.com/rollup/rollup/pull/5663): chore(deps): update dependency inquirer to v11 (@renovate[bot], @lukastaegert)
+- [#5664](https://github.com/rollup/rollup/pull/5664): chore(deps): lock file maintenance minor/patch updates (@renovate[bot])
+- [#5665](https://github.com/rollup/rollup/pull/5665): fix: type in CI file (@YuHyeonWook)
+- [#5666](https://github.com/rollup/rollup/pull/5666): chore(deps): lock file maintenance minor/patch updates (@renovate[bot])
+
+## 4.22.0
+
+_2024-09-19_
+
+### Features
+
+- Add additional known global values to avoid access side effects (#5651)
+
+### Bug Fixes
+
+- Ensure deterministic chunk hash generation despite async renderChunk hook (#5644)
+- Improve side effect detection when using "smallest" treeshaking preset when imports are optimized away (#5658)
+
+### Pull Requests
+
+- [#5644](https://github.com/rollup/rollup/pull/5644): fix: apply final hashes deterministically with stable placeholders set (@mattkubej, @lukastaegert)
+- [#5646](https://github.com/rollup/rollup/pull/5646): chore(deps): update dependency @mermaid-js/mermaid-cli to v11 (@renovate[bot])
+- [#5647](https://github.com/rollup/rollup/pull/5647): chore(deps): update dependency concurrently to v9 (@renovate[bot])
+- [#5648](https://github.com/rollup/rollup/pull/5648): chore(deps): lock file maintenance minor/patch updates (@renovate[bot])
+- [#5651](https://github.com/rollup/rollup/pull/5651): feat: add `AggregateError`, `FinalizationRegistry`, `WeakRef` to knownGlobals (@re-taro)
+- [#5653](https://github.com/rollup/rollup/pull/5653): Fix example selection in REPL (@lukastaegert)
+- [#5657](https://github.com/rollup/rollup/pull/5657): chore(deps): update dependency vite to v5.4.6 [security] (@renovate[bot])
+- [#5658](https://github.com/rollup/rollup/pull/5658): Detect variable reassignments in modules without side effects (@lukastaegert)
+
+## 4.21.3
+
+_2024-09-12_
+
+### Bug Fixes
+
+- Always respect side effects in left-hand side of optional chain (#5642)
+- Update stack trace for augmented errors to not hide relevant information (#5640)
+
+### Pull Requests
+
+- [#5636](https://github.com/rollup/rollup/pull/5636): chore(deps): lock file maintenance minor/patch updates (@renovate[bot])
+- [#5637](https://github.com/rollup/rollup/pull/5637): chore(deps): lock file maintenance (@renovate[bot])
+- [#5640](https://github.com/rollup/rollup/pull/5640): fix: keep the message of stack up-to-date (@TrickyPi)
+- [#5642](https://github.com/rollup/rollup/pull/5642): fix: include left-side effect of optional chaining in the end of hasEffectsAsChainElement (@TrickyPi)
+
 ## 4.21.2
 
 _2024-08-30_
