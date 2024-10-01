@@ -16,6 +16,7 @@ import {
 } from '../NodeInteractions';
 import type FunctionScope from '../scopes/FunctionScope';
 import { EMPTY_PATH, type ObjectPath, type PathTracker } from '../utils/PathTracker';
+import { hasOrAddIncludedPaths } from '../utils/hasOrAddIncludedPaths';
 import GlobalVariable from '../variables/GlobalVariable';
 import LocalVariable from '../variables/LocalVariable';
 import type Variable from '../variables/Variable';
@@ -38,7 +39,7 @@ const tdzVariableKinds = new Set(['class', 'const', 'let', 'var', 'using', 'awai
 export default class Identifier extends NodeBase implements PatternNode {
 	declare name: string;
 	declare type: NodeType.tIdentifier;
-	declare includedPaths: ObjectPath[] | null;
+	declare includedPaths: Set<ObjectPath> | null;
 
 	variable: Variable | null = null;
 
@@ -195,24 +196,12 @@ export default class Identifier extends NodeBase implements PatternNode {
 		}
 	}
 
-	private clearCachedIncludedPaths() {
-		this.includedPaths = null;
-	}
-
-	private hasOrAddIncludedPaths(path: ObjectPath) {
+	private hasOrAddIncludedPathss(path: ObjectPath) {
 		if (!this.includedPaths) {
-			this.includedPaths = [];
+			this.includedPaths = new Set([path]);
+			return false;
 		}
-		for (const includedPath of this.includedPaths) {
-			if (
-				path.length === includedPath.length &&
-				path.every((key, index) => key === includedPath[index])
-			) {
-				return true;
-			}
-		}
-		this.includedPaths.push(path);
-		return false;
+		return hasOrAddIncludedPaths(this.includedPaths, path);
 	}
 
 	includePath(path: ObjectPath, context: InclusionContext): void {
@@ -223,11 +212,12 @@ export default class Identifier extends NodeBase implements PatternNode {
 				this.scope.context.includeVariableInModule(this.variable, path);
 			}
 		}
-		if (this.variable && path.length > 0 && !this.hasOrAddIncludedPaths(path)) {
+		if (
+			this.variable &&
+			path.length > 0 &&
+			(!this.hasOrAddIncludedPathss(path) || this.variable.kind === 'parameter')
+		) {
 			this.variable.includePath(path, context);
-			if (this.variable.kind === 'parameter') {
-				this.clearCachedIncludedPaths();
-			}
 		}
 	}
 
