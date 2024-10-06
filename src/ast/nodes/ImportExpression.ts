@@ -1,14 +1,14 @@
 import type MagicString from 'magic-string';
 import ExternalModule from '../../ExternalModule';
 import type Module from '../../Module';
-import type { AstNode, GetInterop, NormalizedOutputOptions } from '../../rollup/types';
-import type { PluginDriver } from '../../utils/PluginDriver';
+import type { ast, GetInterop, NormalizedOutputOptions } from '../../rollup/types';
 import { EMPTY_ARRAY } from '../../utils/blank';
 import type { GenerateCodeSnippets } from '../../utils/generateCodeSnippets';
 import {
 	INTEROP_NAMESPACE_DEFAULT_ONLY_VARIABLE,
 	namespaceInteropHelpersByInteropType
 } from '../../utils/interopHelpers';
+import type { PluginDriver } from '../../utils/PluginDriver';
 import { findFirstOccurrenceOutsideComment, type RenderOptions } from '../../utils/renderHelpers';
 import type { InclusionContext } from '../ExecutionContext';
 import type ChildScope from '../scopes/ChildScope';
@@ -22,13 +22,13 @@ import Identifier from './Identifier';
 import MemberExpression from './MemberExpression';
 import type * as NodeType from './NodeType';
 import ObjectPattern from './ObjectPattern';
-import VariableDeclarator from './VariableDeclarator';
 import {
 	type ExpressionNode,
 	type GenericEsTreeNode,
 	type IncludeChildren,
 	NodeBase
 } from './shared/Node';
+import VariableDeclarator from './VariableDeclarator';
 
 interface DynamicImportMechanism {
 	left: string;
@@ -40,7 +40,7 @@ export default class ImportExpression extends NodeBase {
 	inlineNamespace: NamespaceVariable | null = null;
 	declare source: ExpressionNode;
 	declare type: NodeType.tImportExpression;
-	declare sourceAstNode: AstNode;
+	declare sourceAstNode: ast.Expression;
 
 	private attributes: string | null | true = null;
 	private mechanism: DynamicImportMechanism | null = null;
