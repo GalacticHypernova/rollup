@@ -12,8 +12,8 @@ import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
 export default class ObjectPattern extends NodeBase implements PatternNode {
-	declare properties: readonly (Property | RestElement)[];
-	declare type: NodeType.tObjectPattern;
+	properties!: readonly (Property | RestElement)[];
+	type!: NodeType.tObjectPattern;
 
 	addExportedVariables(
 		variables: readonly Variable[],

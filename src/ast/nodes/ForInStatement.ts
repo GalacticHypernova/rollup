@@ -18,10 +18,10 @@ import type { PatternNode } from './shared/Pattern';
 import { hasLoopBodyEffects, includeLoopBody } from './shared/loops';
 
 export default class ForInStatement extends StatementBase {
-	declare body: StatementNode;
-	declare left: VariableDeclaration | PatternNode | MemberExpression;
-	declare right: ExpressionNode;
-	declare type: NodeType.tForInStatement;
+	body!: StatementNode;
+	left!: VariableDeclaration | PatternNode | MemberExpression;
+	right!: ExpressionNode;
+	type!: NodeType.tForInStatement;
 
 	createScope(parentScope: ChildScope): void {
 		this.scope = new BlockScope(parentScope);

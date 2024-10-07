@@ -17,10 +17,10 @@ import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
 export default class VariableDeclarator extends NodeBase {
-	declare id: PatternNode;
-	declare init: ExpressionNode | null;
-	declare type: NodeType.tVariableDeclarator;
-	declare isUsingDeclaration: boolean;
+	id!: PatternNode;
+	init!: ExpressionNode | null;
+	type!: NodeType.tVariableDeclarator;
+	isUsingDeclaration!: boolean;
 
 	declareDeclarator(kind: VariableKind, isUsingDeclaration: boolean): void {
 		this.isUsingDeclaration = isUsingDeclaration;

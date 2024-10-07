@@ -16,10 +16,10 @@ import { UNKNOWN_EXPRESSION, UNKNOWN_RETURN_EXPRESSION } from './shared/Expressi
 import type { ExpressionNode, IncludeChildren } from './shared/Node';
 
 export default class TaggedTemplateExpression extends CallExpressionBase {
-	declare quasi: TemplateLiteral;
-	declare tag: ExpressionNode;
-	declare type: NodeType.tTaggedTemplateExpression;
-	private declare args: ExpressionEntity[];
+	quasi!: TemplateLiteral;
+	tag!: ExpressionNode;
+	type!: NodeType.tTaggedTemplateExpression;
+	private args!: ExpressionEntity[];
 
 	bind(): void {
 		super.bind();

@@ -10,8 +10,8 @@ import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
 export default class ArrayPattern extends NodeBase implements PatternNode {
-	declare elements: (PatternNode | null)[];
-	declare type: NodeType.tArrayPattern;
+	elements!: (PatternNode | null)[];
+	type!: NodeType.tArrayPattern;
 
 	addExportedVariables(
 		variables: readonly Variable[],

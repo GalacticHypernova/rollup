@@ -19,10 +19,10 @@ import type { PatternNode } from './shared/Pattern';
 import { includeLoopBody } from './shared/loops';
 
 export default class ForOfStatement extends StatementBase {
-	declare body: StatementNode;
-	declare left: VariableDeclaration | PatternNode | MemberExpression;
-	declare right: ExpressionNode;
-	declare type: NodeType.tForOfStatement;
+	body!: StatementNode;
+	left!: VariableDeclaration | PatternNode | MemberExpression;
+	right!: ExpressionNode;
+	type!: NodeType.tForOfStatement;
 
 	get await(): boolean {
 		return isFlagSet(this.flags, Flag.await);

@@ -13,12 +13,12 @@ import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
 export default class Property extends MethodBase implements PatternNode {
-	declare key: ExpressionNode;
-	declare kind: 'init' | 'get' | 'set';
-	declare type: NodeType.tProperty;
+	key!: ExpressionNode;
+	kind!: 'init' | 'get' | 'set';
+	type!: NodeType.tProperty;
 	private declarationInit: ExpressionEntity | null = null;
 
-	//declare method: boolean;
+	//method!: boolean;
 	get method(): boolean {
 		return isFlagSet(this.flags, Flag.method);
 	}
@@ -26,7 +26,7 @@ export default class Property extends MethodBase implements PatternNode {
 		this.flags = setFlag(this.flags, Flag.method, value);
 	}
 
-	//declare shorthand: boolean;
+	//shorthand!: boolean;
 	get shorthand(): boolean {
 		return isFlagSet(this.flags, Flag.shorthand);
 	}

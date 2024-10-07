@@ -13,25 +13,25 @@ import { EMPTY_PATH, SHARED_RECURSION_TRACKER } from '../utils/PathTracker';
 import Identifier from './Identifier';
 import MemberExpression from './MemberExpression';
 import type * as NodeType from './NodeType';
-import type SpreadElement from './SpreadElement';
-import type Super from './Super';
 import { Flag, isFlagSet, setFlag } from './shared/BitFlags';
 import CallExpressionBase from './shared/CallExpressionBase';
+import { getChainElementLiteralValueAtPath } from './shared/chainElements';
 import type { ExpressionEntity, LiteralValueOrUnknown } from './shared/Expression';
 import { UNKNOWN_RETURN_EXPRESSION } from './shared/Expression';
 import type { ChainElement, ExpressionNode, IncludeChildren, SkippedChain } from './shared/Node';
 import { INCLUDE_PARAMETERS, IS_SKIPPED_CHAIN } from './shared/Node';
-import { getChainElementLiteralValueAtPath } from './shared/chainElements';
+import type SpreadElement from './SpreadElement';
+import type Super from './Super';
 
 export default class CallExpression
 	extends CallExpressionBase
 	implements DeoptimizableEntity, ChainElement
 {
-	declare arguments: (ExpressionNode | SpreadElement)[];
-	declare callee: ExpressionNode | Super;
-	declare type: NodeType.tCallExpression;
+	arguments!: (ExpressionNode | SpreadElement)[];
+	callee!: ExpressionNode | Super;
+	type!: NodeType.tCallExpression;
 	/** Marked with #__PURE__ annotation */
-	declare annotationPure?: boolean;
+	annotationPure?: boolean;
 
 	get optional(): boolean {
 		return isFlagSet(this.flags, Flag.optional);

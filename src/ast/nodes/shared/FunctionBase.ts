@@ -35,13 +35,13 @@ import type { PatternNode } from './Pattern';
 type InteractionCalledArguments = NodeInteractionCalled['args'];
 
 export default abstract class FunctionBase extends NodeBase {
-	declare body: BlockStatement | ExpressionNode;
-	declare params: PatternNode[];
-	declare preventChildBlockScope: true;
-	declare scope: ReturnValueScope;
+	body!: BlockStatement | ExpressionNode;
+	params!: PatternNode[];
+	preventChildBlockScope!: true;
+	scope!: ReturnValueScope;
 
 	/** Marked with #__NO_SIDE_EFFECTS__ annotation */
-	declare annotationNoSideEffects?: boolean;
+	annotationNoSideEffects?: boolean;
 
 	get async(): boolean {
 		return isFlagSet(this.flags, Flag.async);

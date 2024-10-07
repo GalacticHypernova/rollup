@@ -22,8 +22,8 @@ import { ObjectEntity, type ObjectProperty } from './shared/ObjectEntity';
 import { OBJECT_PROTOTYPE } from './shared/ObjectPrototype';
 
 export default class ObjectExpression extends NodeBase implements DeoptimizableEntity {
-	declare properties: readonly (Property | SpreadElement)[];
-	declare type: NodeType.tObjectExpression;
+	properties!: readonly (Property | SpreadElement)[];
+	type!: NodeType.tObjectExpression;
 	private objectEntity: ObjectEntity | null = null;
 
 	deoptimizeArgumentsOnInteractionAtPath(

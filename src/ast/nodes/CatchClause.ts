@@ -7,11 +7,11 @@ import { type GenericEsTreeNode, NodeBase } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
 
 export default class CatchClause extends NodeBase {
-	declare body: BlockStatement;
-	declare param: PatternNode | null;
-	declare preventChildBlockScope: true;
-	declare scope: ParameterScope;
-	declare type: NodeType.tCatchClause;
+	body!: BlockStatement;
+	param!: PatternNode | null;
+	preventChildBlockScope!: true;
+	scope!: ParameterScope;
+	type!: NodeType.tCatchClause;
 
 	createScope(parentScope: ChildScope): void {
 		this.scope = new ParameterScope(parentScope, true);

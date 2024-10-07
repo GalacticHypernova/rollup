@@ -24,9 +24,9 @@ import { type ExpressionNode, NodeBase } from './Node';
 import type { PatternNode } from './Pattern';
 
 export default class MethodBase extends NodeBase implements DeoptimizableEntity {
-	declare key: ExpressionNode | PrivateIdentifier;
-	declare kind: 'constructor' | 'method' | 'init' | 'get' | 'set';
-	declare value: ExpressionNode | (ExpressionNode & PatternNode);
+	key!: ExpressionNode | PrivateIdentifier;
+	kind!: 'constructor' | 'method' | 'init' | 'get' | 'set';
+	value!: ExpressionNode | (ExpressionNode & PatternNode);
 
 	get computed(): boolean {
 		return isFlagSet(this.flags, Flag.computed);

@@ -10,8 +10,8 @@ import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
 export default class RestElement extends NodeBase implements PatternNode {
-	declare argument: PatternNode;
-	declare type: NodeType.tRestElement;
+	argument!: PatternNode;
+	type!: NodeType.tRestElement;
 	private declarationInit: ExpressionEntity | null = null;
 
 	addExportedVariables(
