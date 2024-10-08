@@ -8,9 +8,9 @@ import type { HasEffectsContext, InclusionContext } from '../ExecutionContext';
 import BlockScope from '../scopes/BlockScope';
 import type ChildScope from '../scopes/ChildScope';
 import * as NodeType from './NodeType';
-import { type IncludeChildren, StatementBase, type StatementNode } from './shared/Node';
+import { type IncludeChildren, NodeBase, type StatementNode } from './shared/Node';
 
-export default class StaticBlock extends StatementBase {
+export default class StaticBlock extends NodeBase {
 	body!: readonly StatementNode[];
 	type!: NodeType.tStaticBlock;
 

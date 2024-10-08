@@ -6,19 +6,19 @@ import type ChildScope from '../scopes/ChildScope';
 import { EMPTY_PATH, UNKNOWN_PATH } from '../utils/PathTracker';
 import type MemberExpression from './MemberExpression';
 import type * as NodeType from './NodeType';
-import type VariableDeclaration from './VariableDeclaration';
 import { Flag, isFlagSet, setFlag } from './shared/BitFlags';
 import { UNKNOWN_EXPRESSION } from './shared/Expression';
+import { includeLoopBody } from './shared/loops';
 import {
 	type ExpressionNode,
 	type IncludeChildren,
-	StatementBase,
+	NodeBase,
 	type StatementNode
 } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
-import { includeLoopBody } from './shared/loops';
+import type VariableDeclaration from './VariableDeclaration';
 
-export default class ForOfStatement extends StatementBase {
+export default class ForOfStatement extends NodeBase {
 	body!: StatementNode;
 	left!: VariableDeclaration | PatternNode | MemberExpression;
 	right!: ExpressionNode;

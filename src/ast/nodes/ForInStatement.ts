@@ -6,18 +6,18 @@ import type ChildScope from '../scopes/ChildScope';
 import { EMPTY_PATH } from '../utils/PathTracker';
 import type MemberExpression from './MemberExpression';
 import type * as NodeType from './NodeType';
-import type VariableDeclaration from './VariableDeclaration';
 import { UNKNOWN_EXPRESSION } from './shared/Expression';
+import { hasLoopBodyEffects, includeLoopBody } from './shared/loops';
 import {
 	type ExpressionNode,
 	type IncludeChildren,
-	StatementBase,
+	NodeBase,
 	type StatementNode
 } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
-import { hasLoopBodyEffects, includeLoopBody } from './shared/loops';
+import type VariableDeclaration from './VariableDeclaration';
 
-export default class ForInStatement extends StatementBase {
+export default class ForInStatement extends NodeBase {
 	body!: StatementNode;
 	left!: VariableDeclaration | PatternNode | MemberExpression;
 	right!: ExpressionNode;
