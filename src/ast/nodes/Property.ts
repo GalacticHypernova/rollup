@@ -1,5 +1,5 @@
 import type MagicString from 'magic-string';
-import type { NormalizedTreeshakingOptions } from '../../rollup/types';
+import type { ast, NormalizedTreeshakingOptions } from '../../rollup/types';
 import type { RenderOptions } from '../../utils/renderHelpers';
 import type { HasEffectsContext } from '../ExecutionContext';
 import { UnknownKey } from '../utils/PathTracker';
@@ -14,7 +14,7 @@ import type { VariableKind } from './shared/VariableKinds';
 
 export default class Property extends MethodBase implements PatternNode {
 	key!: ExpressionNode;
-	kind!: 'init' | 'get' | 'set';
+	kind!: ast.Property['kind'];
 	type!: NodeType.tProperty;
 	private declarationInit: ExpressionEntity | null = null;
 
