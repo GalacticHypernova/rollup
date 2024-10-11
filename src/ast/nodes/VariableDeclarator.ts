@@ -1,4 +1,5 @@
 import type MagicString from 'magic-string';
+import type { ast } from '../../rollup/types';
 import { BLANK } from '../../utils/blank';
 import { isReassignedExportsMember } from '../../utils/reassignedExportsMember';
 import {
@@ -11,14 +12,14 @@ import type { ObjectPath } from '../utils/PathTracker';
 import { UNDEFINED_EXPRESSION } from '../values';
 import ClassExpression from './ClassExpression';
 import Identifier from './Identifier';
+import type * as nodes from './node-unions';
 import * as NodeType from './NodeType';
-import { type ExpressionNode, type IncludeChildren, NodeBase } from './shared/Node';
-import type { PatternNode } from './shared/Pattern';
+import { type IncludeChildren, NodeBase } from './shared/Node';
 import type { VariableKind } from './shared/VariableKinds';
 
-export default class VariableDeclarator extends NodeBase {
-	id!: PatternNode;
-	init!: ExpressionNode | null;
+export default class VariableDeclarator extends NodeBase<ast.VariableDeclarator> {
+	id!: nodes.BindingName;
+	init!: nodes.Expression | null;
 	type!: NodeType.tVariableDeclarator;
 	isUsingDeclaration!: boolean;
 

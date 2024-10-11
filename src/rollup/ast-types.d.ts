@@ -216,7 +216,7 @@ export interface ExportNamedDeclaration extends BaseNode {
 export interface ExportSpecifier extends BaseNode {
 	type: 'ExportSpecifier';
 	local: Identifier | LiteralString;
-	exported: Identifier | LiteralString | null;
+	exported: Identifier | LiteralString;
 }
 
 export interface ExpressionStatement extends BaseNode {
@@ -312,7 +312,7 @@ export interface ImportNamespaceSpecifier extends BaseNode {
 
 export interface ImportSpecifier extends BaseNode {
 	type: 'ImportSpecifier';
-	imported: Identifier | Literal | null;
+	imported: Identifier | Literal;
 	local: Identifier;
 }
 
@@ -506,8 +506,8 @@ export interface Program extends BaseNode {
 
 export interface Property extends BaseNode {
 	type: 'Property';
-	key: Expression | DestructuringPattern | null;
-	value: Expression;
+	key: Expression;
+	value: Expression | DestructuringPattern;
 	kind: 'init' | 'get' | 'set';
 	method: boolean;
 	shorthand: boolean;
@@ -709,3 +709,100 @@ export type Statement =
 	| TryStatement
 	| VariableDeclaration
 	| WhileStatement;
+
+export type AstNode =
+	| PanicError
+	| ParseError
+	| ArrayExpression
+	| ArrayPattern
+	| ArrowFunctionExpression
+	| AssignmentExpression
+	| AssignmentPattern
+	| AwaitExpression
+	| BinaryExpression
+	| BlockStatement
+	| BreakStatement
+	| CallExpression
+	| CatchClause
+	| ChainExpression
+	| ClassBody
+	| ClassDeclaration
+	| ClassExpression
+	| ConditionalExpression
+	| ContinueStatement
+	| DebuggerStatement
+	| Decorator
+	| Directive
+	| DoWhileStatement
+	| EmptyStatement
+	| ExportAllDeclaration
+	| ExportDefaultDeclaration
+	| ExportNamedDeclaration
+	| ExportSpecifier
+	| ExpressionStatement
+	| ForInStatement
+	| ForOfStatement
+	| ForStatement
+	| FunctionDeclaration
+	| FunctionExpression
+	| Identifier
+	| IfStatement
+	| ImportAttribute
+	| ImportDeclaration
+	| ImportDefaultSpecifier
+	| ImportExpression
+	| ImportNamespaceSpecifier
+	| ImportSpecifier
+	| JSXAttribute
+	| JSXClosingElement
+	| JSXClosingFragment
+	| JSXElement
+	| JSXEmptyExpression
+	| JSXExpressionContainer
+	| JSXFragment
+	| JSXIdentifier
+	| JSXMemberExpression
+	| JSXNamespacedName
+	| JSXOpeningElement
+	| JSXOpeningFragment
+	| JSXSpreadAttribute
+	| JSXSpreadChild
+	| JSXText
+	| LabeledStatement
+	| LiteralBigInt
+	| LiteralBoolean
+	| LiteralNull
+	| LiteralNumber
+	| LiteralRegExp
+	| LiteralString
+	| LogicalExpression
+	| MemberExpression
+	| MetaProperty
+	| MethodDefinition
+	| NewExpression
+	| ObjectExpression
+	| ObjectPattern
+	| PrivateIdentifier
+	| Program
+	| Property
+	| PropertyDefinition
+	| RestElement
+	| ReturnStatement
+	| SequenceExpression
+	| SpreadElement
+	| StaticBlock
+	| Super
+	| SwitchCase
+	| SwitchStatement
+	| TaggedTemplateExpression
+	| TemplateElement
+	| TemplateLiteral
+	| ThisExpression
+	| ThrowStatement
+	| TryStatement
+	| UnaryExpression
+	| UpdateExpression
+	| VariableDeclaration
+	| VariableDeclarator
+	| WhileStatement
+	| YieldExpression;

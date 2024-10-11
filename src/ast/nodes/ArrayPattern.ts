@@ -1,20 +1,22 @@
+import type { ast } from '../../rollup/types';
 import type { HasEffectsContext } from '../ExecutionContext';
-import type { NodeInteractionAssigned } from '../NodeInteractions';
+import type { NodeInteraction } from '../NodeInteractions';
 import { EMPTY_PATH, type ObjectPath } from '../utils/PathTracker';
 import type LocalVariable from '../variables/LocalVariable';
 import type Variable from '../variables/Variable';
+import type * as nodes from './node-unions';
 import type * as NodeType from './NodeType';
 import { UNKNOWN_EXPRESSION } from './shared/Expression';
 import { NodeBase } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
-export default class ArrayPattern extends NodeBase implements PatternNode {
-	elements!: (PatternNode | null)[];
+export default class ArrayPattern extends NodeBase<ast.ArrayPattern> implements PatternNode {
+	elements!: (nodes.DestructuringPattern | null)[];
 	type!: NodeType.tArrayPattern;
 
 	addExportedVariables(
-		variables: readonly Variable[],
+		variables: Variable[],
 		exportNamesByVariable: ReadonlyMap<Variable, readonly string[]>
 	): void {
 		for (const element of this.elements) {
@@ -26,7 +28,7 @@ export default class ArrayPattern extends NodeBase implements PatternNode {
 		const variables: LocalVariable[] = [];
 		for (const element of this.elements) {
 			if (element !== null) {
-				variables.push(...element.declare(kind, UNKNOWN_EXPRESSION));
+				variables.push(...(element as nodes.BindingName).declare(kind, UNKNOWN_EXPRESSION));
 			}
 		}
 		return variables;
@@ -42,7 +44,7 @@ export default class ArrayPattern extends NodeBase implements PatternNode {
 	// Patterns are only checked at the empty path at the moment
 	hasEffectsOnInteractionAtPath(
 		_path: ObjectPath,
-		interaction: NodeInteractionAssigned,
+		interaction: NodeInteraction,
 		context: HasEffectsContext
 	): boolean {
 		for (const element of this.elements) {
@@ -53,7 +55,7 @@ export default class ArrayPattern extends NodeBase implements PatternNode {
 
 	markDeclarationReached(): void {
 		for (const element of this.elements) {
-			element?.markDeclarationReached();
+			(element as nodes.BindingName | null)?.markDeclarationReached();
 		}
 	}
 }

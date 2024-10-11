@@ -1,5 +1,6 @@
+import type { ast } from '../../rollup/types';
 import type { HasEffectsContext } from '../ExecutionContext';
-import type { NodeInteractionAssigned } from '../NodeInteractions';
+import type { NodeInteraction } from '../NodeInteractions';
 import { EMPTY_PATH, type ObjectPath } from '../utils/PathTracker';
 import type LocalVariable from '../variables/LocalVariable';
 import type Variable from '../variables/Variable';
@@ -11,12 +12,12 @@ import { NodeBase } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
-export default class ObjectPattern extends NodeBase implements PatternNode {
+export default class ObjectPattern extends NodeBase<ast.ObjectPattern> implements PatternNode {
 	properties!: readonly (Property | RestElement)[];
 	type!: NodeType.tObjectPattern;
 
 	addExportedVariables(
-		variables: readonly Variable[],
+		variables: Variable[],
 		exportNamesByVariable: ReadonlyMap<Variable, readonly string[]>
 	): void {
 		for (const property of this.properties) {
@@ -51,7 +52,7 @@ export default class ObjectPattern extends NodeBase implements PatternNode {
 		// At the moment, this is only triggered for assignment left-hand sides,
 		// where the path is empty
 		_path: ObjectPath,
-		interaction: NodeInteractionAssigned,
+		interaction: NodeInteraction,
 		context: HasEffectsContext
 	): boolean {
 		for (const property of this.properties) {

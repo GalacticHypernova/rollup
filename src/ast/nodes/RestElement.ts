@@ -1,21 +1,23 @@
+import type { ast } from '../../rollup/types';
 import type { HasEffectsContext } from '../ExecutionContext';
-import type { NodeInteractionAssigned } from '../NodeInteractions';
+import type { NodeInteraction } from '../NodeInteractions';
 import { EMPTY_PATH, type ObjectPath, UnknownKey } from '../utils/PathTracker';
 import type LocalVariable from '../variables/LocalVariable';
 import type Variable from '../variables/Variable';
+import type * as nodes from './node-unions';
 import type * as NodeType from './NodeType';
 import { type ExpressionEntity, UNKNOWN_EXPRESSION } from './shared/Expression';
 import { NodeBase } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
-export default class RestElement extends NodeBase implements PatternNode {
-	argument!: PatternNode;
+export default class RestElement extends NodeBase<ast.RestElement> implements PatternNode {
+	argument!: nodes.DestructuringPattern;
 	type!: NodeType.tRestElement;
 	private declarationInit: ExpressionEntity | null = null;
 
 	addExportedVariables(
-		variables: readonly Variable[],
+		variables: Variable[],
 		exportNamesByVariable: ReadonlyMap<Variable, readonly string[]>
 	): void {
 		this.argument.addExportedVariables(variables, exportNamesByVariable);
@@ -23,7 +25,7 @@ export default class RestElement extends NodeBase implements PatternNode {
 
 	declare(kind: VariableKind, init: ExpressionEntity): LocalVariable[] {
 		this.declarationInit = init;
-		return this.argument.declare(kind, UNKNOWN_EXPRESSION);
+		return (this.argument as nodes.BindingName).declare(kind, UNKNOWN_EXPRESSION);
 	}
 
 	deoptimizePath(path: ObjectPath): void {
@@ -34,7 +36,7 @@ export default class RestElement extends NodeBase implements PatternNode {
 
 	hasEffectsOnInteractionAtPath(
 		path: ObjectPath,
-		interaction: NodeInteractionAssigned,
+		interaction: NodeInteraction,
 		context: HasEffectsContext
 	): boolean {
 		return (
@@ -44,7 +46,7 @@ export default class RestElement extends NodeBase implements PatternNode {
 	}
 
 	markDeclarationReached(): void {
-		this.argument.markDeclarationReached();
+		(this.argument as nodes.BindingName).markDeclarationReached();
 	}
 
 	protected applyDeoptimizations(): void {

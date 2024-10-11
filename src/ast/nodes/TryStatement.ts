@@ -1,11 +1,11 @@
-import type { NormalizedTreeshakingOptions } from '../../rollup/types';
+import type { ast, NormalizedTreeshakingOptions } from '../../rollup/types';
 import type { HasEffectsContext, InclusionContext } from '../ExecutionContext';
 import type BlockStatement from './BlockStatement';
 import type CatchClause from './CatchClause';
 import type * as NodeType from './NodeType';
 import { INCLUDE_PARAMETERS, type IncludeChildren, NodeBase } from './shared/Node';
 
-export default class TryStatement extends NodeBase {
+export default class TryStatement extends NodeBase<ast.TryStatement> {
 	block!: BlockStatement;
 	finalizer!: BlockStatement | null;
 	handler!: CatchClause | null;

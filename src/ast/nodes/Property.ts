@@ -4,16 +4,16 @@ import type { RenderOptions } from '../../utils/renderHelpers';
 import type { HasEffectsContext } from '../ExecutionContext';
 import { UnknownKey } from '../utils/PathTracker';
 import type LocalVariable from '../variables/LocalVariable';
+import type * as nodes from './node-unions';
 import type * as NodeType from './NodeType';
 import { Flag, isFlagSet, setFlag } from './shared/BitFlags';
 import { type ExpressionEntity, UNKNOWN_EXPRESSION } from './shared/Expression';
 import MethodBase from './shared/MethodBase';
-import type { ExpressionNode } from './shared/Node';
 import type { PatternNode } from './shared/Pattern';
 import type { VariableKind } from './shared/VariableKinds';
 
-export default class Property extends MethodBase implements PatternNode {
-	key!: ExpressionNode;
+export default class Property extends MethodBase<ast.Property> implements PatternNode {
+	key!: nodes.Expression;
 	kind!: ast.Property['kind'];
 	type!: NodeType.tProperty;
 	private declarationInit: ExpressionEntity | null = null;

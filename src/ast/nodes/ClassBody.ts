@@ -1,21 +1,21 @@
+import type { ast } from '../../rollup/types';
 import type { InclusionContext } from '../ExecutionContext';
 import type ChildScope from '../scopes/ChildScope';
 import ClassBodyScope from '../scopes/ClassBodyScope';
-
 import type MethodDefinition from './MethodDefinition';
 import type * as NodeType from './NodeType';
 import type PropertyDefinition from './PropertyDefinition';
-import type StaticBlock from './StaticBlock';
 import type ClassNode from './shared/ClassNode';
-import { type GenericEsTreeNode, type IncludeChildren, NodeBase } from './shared/Node';
+import { type IncludeChildren, NodeBase } from './shared/Node';
+import type StaticBlock from './StaticBlock';
 
-export default class ClassBody extends NodeBase {
+export default class ClassBody extends NodeBase<ast.ClassBody> {
 	body!: (MethodDefinition | PropertyDefinition | StaticBlock)[];
 	scope!: ClassBodyScope;
 	type!: NodeType.tClassBody;
 
 	createScope(parentScope: ChildScope): void {
-		this.scope = new ClassBodyScope(parentScope, this.parent as ClassNode);
+		this.scope = new ClassBodyScope(parentScope, this.parent as ClassNode<any>);
 	}
 
 	include(context: InclusionContext, includeChildrenRecursively: IncludeChildren): void {
@@ -26,13 +26,15 @@ export default class ClassBody extends NodeBase {
 		}
 	}
 
-	parseNode(esTreeNode: GenericEsTreeNode): this {
-		const body: NodeBase[] = (this.body = []);
+	parseNode(esTreeNode: ast.ClassBody): this {
+		const body: (MethodDefinition | PropertyDefinition | StaticBlock)[] = (this.body = []);
 		for (const definition of esTreeNode.body) {
 			body.push(
-				new (this.scope.context.getNodeConstructor(definition.type))(
+				new (this.scope.context.getNodeConstructor<any>(definition.type))(
 					this,
-					definition.static ? this.scope : this.scope.instanceScope
+					(definition as MethodDefinition | PropertyDefinition).static
+						? this.scope
+						: this.scope.instanceScope
 				).parseNode(definition)
 			);
 		}

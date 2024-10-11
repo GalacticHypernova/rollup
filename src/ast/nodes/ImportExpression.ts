@@ -20,14 +20,10 @@ import ExpressionStatement from './ExpressionStatement';
 import FunctionExpression from './FunctionExpression';
 import Identifier from './Identifier';
 import MemberExpression from './MemberExpression';
+import type * as nodes from './node-unions';
 import type * as NodeType from './NodeType';
 import ObjectPattern from './ObjectPattern';
-import {
-	type ExpressionNode,
-	type GenericEsTreeNode,
-	type IncludeChildren,
-	NodeBase
-} from './shared/Node';
+import { type IncludeChildren, NodeBase } from './shared/Node';
 import VariableDeclarator from './VariableDeclarator';
 
 interface DynamicImportMechanism {
@@ -35,10 +31,10 @@ interface DynamicImportMechanism {
 	right: string;
 }
 
-export default class ImportExpression extends NodeBase {
-	options!: ExpressionNode | null;
+export default class ImportExpression extends NodeBase<ast.ImportExpression> {
+	options!: nodes.Expression | null;
 	inlineNamespace: NamespaceVariable | null = null;
-	source!: ExpressionNode;
+	source!: nodes.Expression;
 	type!: NodeType.tImportExpression;
 	sourceAstNode!: ast.Expression;
 
@@ -165,7 +161,7 @@ export default class ImportExpression extends NodeBase {
 		this.scope.context.addDynamicImport(this);
 	}
 
-	parseNode(esTreeNode: GenericEsTreeNode): this {
+	parseNode(esTreeNode: ast.ImportExpression): this {
 		this.sourceAstNode = esTreeNode.source;
 		return super.parseNode(esTreeNode);
 	}

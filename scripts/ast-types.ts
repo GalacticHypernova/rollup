@@ -25,7 +25,7 @@
  * @typescript-eslint/types/dist/generated/ast-spec.d.ts
  */
 
-type AstNodeName =
+export type AstNodeName =
 	| 'PanicError'
 	| 'ParseError'
 	| 'ArrayExpression'
@@ -841,12 +841,12 @@ export const AST_NODES: Record<AstNodeName, NodeDescription> = {
 			{
 				allowNull: true,
 				name: 'key',
-				nodeTypes: ['Expression', 'DestructuringPattern'],
+				nodeTypes: ['Expression'],
 				type: 'Node'
 			},
 			{
 				name: 'value',
-				nodeTypes: ['Expression'],
+				nodeTypes: ['Expression', 'DestructuringPattern'],
 				type: 'Node'
 			},
 			{ name: 'kind', type: 'FixedString', values: ['init', 'get', 'set'] }

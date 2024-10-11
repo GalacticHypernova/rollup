@@ -1,14 +1,15 @@
+import type { ast } from '../../rollup/types';
 import type ChildScope from '../scopes/ChildScope';
 import ParameterScope from '../scopes/ParameterScope';
 import BlockStatement from './BlockStatement';
+import type * as nodes from './node-unions';
 import type * as NodeType from './NodeType';
 import { UNKNOWN_EXPRESSION } from './shared/Expression';
-import { type GenericEsTreeNode, NodeBase } from './shared/Node';
-import type { PatternNode } from './shared/Pattern';
+import { NodeBase } from './shared/Node';
 
-export default class CatchClause extends NodeBase {
+export default class CatchClause extends NodeBase<ast.CatchClause> {
 	body!: BlockStatement;
-	param!: PatternNode | null;
+	param!: nodes.BindingName | null;
 	preventChildBlockScope!: true;
 	scope!: ParameterScope;
 	type!: NodeType.tCatchClause;
@@ -17,14 +18,14 @@ export default class CatchClause extends NodeBase {
 		this.scope = new ParameterScope(parentScope, true);
 	}
 
-	parseNode(esTreeNode: GenericEsTreeNode): this {
+	parseNode(esTreeNode: ast.CatchClause): this {
 		const { body, param, type } = esTreeNode;
-		this.type = type as NodeType.tCatchClause;
+		this.type = type;
 		if (param) {
-			this.param = new (this.scope.context.getNodeConstructor(param.type))(
+			this.param = new (this.scope.context.getNodeConstructor<any>(param.type))(
 				this,
 				this.scope
-			).parseNode(param) as unknown as PatternNode;
+			).parseNode(param);
 			this.param!.declare('parameter', UNKNOWN_EXPRESSION);
 		}
 		this.body = new BlockStatement(this, this.scope.bodyScope).parseNode(body);
